@@ -4,7 +4,7 @@ import { Upload, Instagram, Linkedin, Twitter, Facebook, Download, Copy, Plus, X
 // Brand configuration
 const BRAND_NAME = 'Fountain Vitality';
 const BRAND_HANDLE = 'fountainvitality';
-const BRAND_LOGO = '/logo.svg';
+const BRAND_LOGO = '/fountain-logo.png';
 
 export default function SocialPreviewPro() {
   // Core state
@@ -348,7 +348,7 @@ export default function SocialPreviewPro() {
     alert('Screenshot export would use html2canvas library. In production, this would capture the preview and download as PNG.');
   };
 
-  const downloadTemplate = (template, platformName) => {
+  const downloadTemplate = async (template, platformName) => {
     // Create a canvas with the template dimensions
     const canvas = document.createElement('canvas');
     canvas.width = template.width;
@@ -394,13 +394,40 @@ export default function SocialPreviewPro() {
     ctx.lineTo(centerX, centerY + 30);
     ctx.stroke();
     
-    // Draw text info
+    // Load and draw Fountain logo
+    try {
+      const logo = new Image();
+      logo.crossOrigin = 'anonymous';
+      await new Promise((resolve, reject) => {
+        logo.onload = resolve;
+        logo.onerror = reject;
+        logo.src = BRAND_LOGO;
+      });
+      
+      // Draw logo in center (scaled to fit nicely)
+      const logoSize = Math.min(canvas.width, canvas.height) * 0.25;
+      const logoX = centerX - logoSize / 2;
+      const logoY = centerY - logoSize / 2;
+      ctx.globalAlpha = 0.15;
+      ctx.drawImage(logo, logoX, logoY, logoSize, logoSize);
+      ctx.globalAlpha = 1;
+    } catch (e) {
+      // Logo failed to load, continue without it
+      console.log('Logo could not be loaded for template');
+    }
+    
+    // Draw text info at top
     ctx.fillStyle = '#64748b';
     ctx.font = 'bold 24px -apple-system, BlinkMacSystemFont, sans-serif';
     ctx.textAlign = 'center';
     ctx.fillText(`${platformName} - ${template.name}`, canvas.width / 2, 50);
     ctx.font = '18px -apple-system, BlinkMacSystemFont, sans-serif';
     ctx.fillText(`${template.width} × ${template.height}px (${template.ratio})`, canvas.width / 2, 80);
+    
+    // Draw Fountain Vitality branding
+    ctx.fillStyle = '#0f172a';
+    ctx.font = 'bold 16px -apple-system, BlinkMacSystemFont, sans-serif';
+    ctx.fillText('Fountain Vitality', canvas.width / 2, canvas.height - 55);
     
     // Draw safe zone indicator at bottom
     ctx.fillStyle = '#94a3b8';
@@ -409,7 +436,7 @@ export default function SocialPreviewPro() {
     
     // Download the canvas as PNG
     const link = document.createElement('a');
-    link.download = `${platformName.toLowerCase()}-${template.name.toLowerCase().replace(/\s+/g, '-')}-${template.width}x${template.height}.png`;
+    link.download = `fountain-vitality-${platformName.toLowerCase()}-${template.name.toLowerCase().replace(/\s+/g, '-')}-${template.width}x${template.height}.png`;
     link.href = canvas.toDataURL('image/png');
     link.click();
   };
