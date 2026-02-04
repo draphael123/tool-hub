@@ -61,6 +61,38 @@ export default function SocialPreviewPro() {
     fonts: ['Inter', 'Helvetica Neue', 'Arial']
   });
 
+  // Feature 9: Upload Templates
+  const [showTemplates, setShowTemplates] = useState(false);
+  const uploadTemplates = {
+    instagram: [
+      { name: 'Feed Post', width: 1080, height: 1080, ratio: '1:1', desc: 'Square post' },
+      { name: 'Portrait', width: 1080, height: 1350, ratio: '4:5', desc: 'Best engagement' },
+      { name: 'Story/Reel', width: 1080, height: 1920, ratio: '9:16', desc: 'Full screen vertical' },
+      { name: 'Landscape', width: 1080, height: 608, ratio: '16:9', desc: 'Wide format' },
+    ],
+    linkedin: [
+      { name: 'Link Preview', width: 1200, height: 627, ratio: '1.91:1', desc: 'Article shares' },
+      { name: 'Square Post', width: 1080, height: 1080, ratio: '1:1', desc: 'Standard post' },
+      { name: 'Portrait', width: 1080, height: 1350, ratio: '4:5', desc: 'Document style' },
+    ],
+    twitter: [
+      { name: 'Single Image', width: 1200, height: 675, ratio: '16:9', desc: 'Timeline preview' },
+      { name: 'Two Images', width: 700, height: 800, ratio: '7:8', desc: 'Side by side' },
+      { name: 'Header', width: 1500, height: 500, ratio: '3:1', desc: 'Profile banner' },
+    ],
+    tiktok: [
+      { name: 'Video', width: 1080, height: 1920, ratio: '9:16', desc: 'Full screen' },
+      { name: 'Photo', width: 1080, height: 1920, ratio: '9:16', desc: 'Photo mode' },
+    ],
+    facebook: [
+      { name: 'Feed Post', width: 1200, height: 630, ratio: '1.91:1', desc: 'News feed' },
+      { name: 'Square', width: 1080, height: 1080, ratio: '1:1', desc: 'Carousel' },
+      { name: 'Story', width: 1080, height: 1920, ratio: '9:16', desc: 'Full screen' },
+      { name: 'Cover Photo', width: 820, height: 312, ratio: '2.63:1', desc: 'Page cover' },
+      { name: 'Event Cover', width: 1920, height: 1005, ratio: '1.91:1', desc: 'Event header' },
+    ]
+  };
+
   const platforms = {
     instagram: {
       name: 'Instagram',
@@ -316,6 +348,72 @@ export default function SocialPreviewPro() {
     alert('Screenshot export would use html2canvas library. In production, this would capture the preview and download as PNG.');
   };
 
+  const downloadTemplate = (template, platformName) => {
+    // Create a canvas with the template dimensions
+    const canvas = document.createElement('canvas');
+    canvas.width = template.width;
+    canvas.height = template.height;
+    const ctx = canvas.getContext('2d');
+    
+    // Fill with brand color background
+    ctx.fillStyle = '#f8fafc';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    
+    // Draw border
+    ctx.strokeStyle = '#e2e8f0';
+    ctx.lineWidth = 4;
+    ctx.strokeRect(2, 2, canvas.width - 4, canvas.height - 4);
+    
+    // Draw guide lines (rule of thirds)
+    ctx.strokeStyle = '#cbd5e1';
+    ctx.lineWidth = 1;
+    ctx.setLineDash([10, 10]);
+    // Vertical lines
+    ctx.beginPath();
+    ctx.moveTo(canvas.width / 3, 0);
+    ctx.lineTo(canvas.width / 3, canvas.height);
+    ctx.moveTo((canvas.width / 3) * 2, 0);
+    ctx.lineTo((canvas.width / 3) * 2, canvas.height);
+    // Horizontal lines
+    ctx.moveTo(0, canvas.height / 3);
+    ctx.lineTo(canvas.width, canvas.height / 3);
+    ctx.moveTo(0, (canvas.height / 3) * 2);
+    ctx.lineTo(canvas.width, (canvas.height / 3) * 2);
+    ctx.stroke();
+    ctx.setLineDash([]);
+    
+    // Draw center crosshair
+    ctx.strokeStyle = '#94a3b8';
+    ctx.lineWidth = 2;
+    const centerX = canvas.width / 2;
+    const centerY = canvas.height / 2;
+    ctx.beginPath();
+    ctx.moveTo(centerX - 30, centerY);
+    ctx.lineTo(centerX + 30, centerY);
+    ctx.moveTo(centerX, centerY - 30);
+    ctx.lineTo(centerX, centerY + 30);
+    ctx.stroke();
+    
+    // Draw text info
+    ctx.fillStyle = '#64748b';
+    ctx.font = 'bold 24px -apple-system, BlinkMacSystemFont, sans-serif';
+    ctx.textAlign = 'center';
+    ctx.fillText(`${platformName} - ${template.name}`, canvas.width / 2, 50);
+    ctx.font = '18px -apple-system, BlinkMacSystemFont, sans-serif';
+    ctx.fillText(`${template.width} × ${template.height}px (${template.ratio})`, canvas.width / 2, 80);
+    
+    // Draw safe zone indicator at bottom
+    ctx.fillStyle = '#94a3b8';
+    ctx.font = '14px -apple-system, BlinkMacSystemFont, sans-serif';
+    ctx.fillText('Safe zone: keep important content within guide lines', canvas.width / 2, canvas.height - 30);
+    
+    // Download the canvas as PNG
+    const link = document.createElement('a');
+    link.download = `${platformName.toLowerCase()}-${template.name.toLowerCase().replace(/\s+/g, '-')}-${template.width}x${template.height}.png`;
+    link.href = canvas.toDataURL('image/png');
+    link.click();
+  };
+
   // Preview Components
   const InstagramPreview = () => {
     const currentMedia = media[currentMediaIndex];
@@ -545,6 +643,9 @@ export default function SocialPreviewPro() {
           <button onClick={() => setViewMode(viewMode === 'single' ? 'compare' : 'single')} className={`platform-btn ${viewMode === 'compare' ? 'active' : ''}`}>
             <Grid size={14} /> Compare
           </button>
+          <button onClick={() => setShowTemplates(!showTemplates)} className={`platform-btn ${showTemplates ? 'active' : ''}`}>
+            <Download size={14} /> Templates
+          </button>
           <button onClick={() => setShowDrafts(!showDrafts)} className={`platform-btn ${showDrafts ? 'active' : ''}`}>
             <FileText size={14} /> Drafts
           </button>
@@ -566,10 +667,64 @@ export default function SocialPreviewPro() {
         </div>
 
         {/* Side Panels */}
-        <div style={{ display: 'grid', gridTemplateColumns: showDrafts || showHashtagPanel || showEmojiPicker || showAccessibility || showBrandLibrary || showPerformance ? '300px 1fr' : '1fr', gap: '24px' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: showTemplates || showDrafts || showHashtagPanel || showEmojiPicker || showAccessibility || showBrandLibrary || showPerformance ? '300px 1fr' : '1fr', gap: '24px' }}>
           {/* Left Sidebar */}
-          {(showDrafts || showHashtagPanel || showEmojiPicker || showAccessibility || showBrandLibrary || showPerformance) && (
+          {(showTemplates || showDrafts || showHashtagPanel || showEmojiPicker || showAccessibility || showBrandLibrary || showPerformance) && (
             <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+              {/* Templates Panel */}
+              {showTemplates && (
+                <div className="panel">
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
+                    <h3>Upload Templates</h3>
+                    <button onClick={() => setShowTemplates(false)} style={{ background: 'none', border: 'none', cursor: 'pointer', fontSize: '18px', color: '#64748b' }}>×</button>
+                  </div>
+                  <p style={{ fontSize: '12px', color: '#64748b', margin: '0 0 16px 0' }}>
+                    Download templates with correct dimensions for each platform
+                  </p>
+                  
+                  {Object.entries(uploadTemplates).map(([platformKey, templates]) => {
+                    const platform = platforms[platformKey];
+                    const Icon = platform?.icon;
+                    return (
+                      <div key={platformKey} style={{ marginBottom: '16px' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '8px', fontSize: '13px', fontWeight: '600', color: '#0f172a' }}>
+                          {Icon && <Icon size={14} />}
+                          {platform?.name || platformKey}
+                        </div>
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+                          {templates.map((template, idx) => (
+                            <button
+                              key={idx}
+                              onClick={() => downloadTemplate(template, platform?.name || platformKey)}
+                              style={{
+                                display: 'flex',
+                                justifyContent: 'space-between',
+                                alignItems: 'center',
+                                padding: '10px 12px',
+                                background: '#f8fafc',
+                                border: '1px solid #e2e8f0',
+                                borderRadius: '6px',
+                                cursor: 'pointer',
+                                transition: 'all 0.15s',
+                                textAlign: 'left'
+                              }}
+                              onMouseOver={(e) => { e.currentTarget.style.background = '#f1f5f9'; e.currentTarget.style.borderColor = '#cbd5e1'; }}
+                              onMouseOut={(e) => { e.currentTarget.style.background = '#f8fafc'; e.currentTarget.style.borderColor = '#e2e8f0'; }}
+                            >
+                              <div>
+                                <div style={{ fontSize: '13px', fontWeight: '500', color: '#0f172a' }}>{template.name}</div>
+                                <div style={{ fontSize: '11px', color: '#64748b' }}>{template.width}×{template.height} · {template.ratio}</div>
+                              </div>
+                              <Download size={14} color="#64748b" />
+                            </button>
+                          ))}
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
+
               {/* Drafts Panel */}
               {showDrafts && (
                 <div className="panel">
