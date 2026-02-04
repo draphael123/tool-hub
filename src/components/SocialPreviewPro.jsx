@@ -1,6 +1,11 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Upload, Instagram, Linkedin, Twitter, Facebook, Download, Copy, Plus, X, Save, FileText, Hash, Link as LinkIcon, Eye, Smile, Package, TrendingUp, Grid, AlertTriangle } from 'lucide-react';
 
+// Brand configuration
+const BRAND_NAME = 'Fountain Vitality';
+const BRAND_HANDLE = 'fountainvitality';
+const BRAND_LOGO = '/logo.svg';
+
 export default function SocialPreviewPro() {
   // Core state
   const [content, setContent] = useState('');
@@ -320,9 +325,9 @@ export default function SocialPreviewPro() {
       <div className="preview-card" style={{ background: 'linear-gradient(135deg, #833ab4 0%, #fd1d1d 50%, #fcb045 100%)' }}>
         <div style={{ background: '#fff', borderRadius: '16px', overflow: 'hidden', boxShadow: '0 20px 60px rgba(0,0,0,0.3)' }}>
           <div style={{ padding: '12px 16px', borderBottom: '1px solid #efefef', display: 'flex', alignItems: 'center', gap: '12px' }}>
-            <div style={{ width: '32px', height: '32px', borderRadius: '50%', background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' }}></div>
+            <img src={BRAND_LOGO} alt={BRAND_NAME} style={{ width: '32px', height: '32px', borderRadius: '50%', objectFit: 'cover' }} />
             <div>
-              <div style={{ fontWeight: '600', fontSize: '14px' }}>fountain.health</div>
+              <div style={{ fontWeight: '600', fontSize: '14px' }}>{BRAND_HANDLE}</div>
               <div style={{ fontSize: '11px', color: '#8e8e8e' }}>Sponsored</div>
             </div>
           </div>
@@ -346,12 +351,12 @@ export default function SocialPreviewPro() {
           )}
           <div style={{ padding: '12px 16px' }}>
             <div style={{ fontSize: '14px', lineHeight: '1.4', color: '#262626', marginBottom: firstComment ? '12px' : '0' }}>
-              <span style={{ fontWeight: '600', marginRight: '6px' }}>fountain.health</span>
+              <span style={{ fontWeight: '600', marginRight: '6px' }}>{BRAND_HANDLE}</span>
               {content || 'Your caption will appear here...'}
             </div>
             {firstComment && (
               <div style={{ fontSize: '14px', lineHeight: '1.4', color: '#262626', paddingTop: '12px', borderTop: '1px solid #efefef' }}>
-                <span style={{ fontWeight: '600', marginRight: '6px' }}>fountain.health</span>
+                <span style={{ fontWeight: '600', marginRight: '6px' }}>{BRAND_HANDLE}</span>
                 <span style={{ color: '#8e8e8e' }}>{firstComment}</span>
               </div>
             )}
@@ -372,9 +377,9 @@ export default function SocialPreviewPro() {
       <div className="preview-card" style={{ background: 'linear-gradient(135deg, #0077b5 0%, #00a0dc 100%)' }}>
         <div style={{ background: '#fff', borderRadius: '8px', overflow: 'hidden', boxShadow: '0 20px 60px rgba(0,0,0,0.3)' }}>
           <div style={{ padding: '12px 16px', borderBottom: '1px solid #e0e0e0', display: 'flex', alignItems: 'center', gap: '12px' }}>
-            <div style={{ width: '48px', height: '48px', borderRadius: '50%', background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' }}></div>
+            <img src={BRAND_LOGO} alt={BRAND_NAME} style={{ width: '48px', height: '48px', borderRadius: '50%', objectFit: 'cover' }} />
             <div>
-              <div style={{ fontWeight: '600', fontSize: '14px', color: '#000' }}>Fountain Health</div>
+              <div style={{ fontWeight: '600', fontSize: '14px', color: '#000' }}>{BRAND_NAME}</div>
               <div style={{ fontSize: '12px', color: '#666' }}>4,521 followers • 1h</div>
             </div>
           </div>
@@ -402,9 +407,9 @@ export default function SocialPreviewPro() {
       <div className="preview-card" style={{ background: 'linear-gradient(135deg, #1da1f2 0%, #0c85d0 100%)' }}>
         <div style={{ background: '#fff', borderRadius: '16px', overflow: 'hidden', boxShadow: '0 20px 60px rgba(0,0,0,0.3)' }}>
           <div style={{ padding: '12px 16px', display: 'flex', gap: '12px' }}>
-            <div style={{ width: '48px', height: '48px', borderRadius: '50%', background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)', flexShrink: 0 }}></div>
+            <img src={BRAND_LOGO} alt={BRAND_NAME} style={{ width: '48px', height: '48px', borderRadius: '50%', objectFit: 'cover', flexShrink: 0 }} />
             <div style={{ flex: 1 }}>
-              <div style={{ fontWeight: '700', fontSize: '15px', color: '#0f1419', marginBottom: '4px' }}>Fountain Health @fountainhealth · 2m</div>
+              <div style={{ fontWeight: '700', fontSize: '15px', color: '#0f1419', marginBottom: '4px' }}>{BRAND_NAME} @{BRAND_HANDLE} · 2m</div>
               <div style={{ fontSize: '15px', lineHeight: '1.4', color: '#0f1419', marginBottom: '12px', whiteSpace: 'pre-wrap' }}>
                 {content || 'Your tweet will appear here...'}
               </div>
@@ -443,7 +448,7 @@ export default function SocialPreviewPro() {
               )}
               <div style={{ position: 'absolute', bottom: '0', left: '0', right: '0', padding: '20px', background: 'linear-gradient(to top, rgba(0,0,0,0.8), transparent)', color: '#fff' }}>
                 <div style={{ fontSize: '14px', lineHeight: '1.4' }}>
-                  <strong>@fountain.health</strong> {content || 'Your TikTok caption...'}
+                  <strong>@{BRAND_HANDLE}</strong> {content || 'Your TikTok caption...'}
                 </div>
               </div>
             </div>
@@ -460,9 +465,12 @@ export default function SocialPreviewPro() {
     return (
       <div className="preview-card" style={{ background: 'linear-gradient(135deg, #1877f2 0%, #0c63d4 100%)' }}>
         <div style={{ background: '#fff', borderRadius: '8px', overflow: 'hidden', boxShadow: '0 20px 60px rgba(0,0,0,0.3)' }}>
-          <div style={{ padding: '12px 16px', borderBottom: '1px solid #e4e6eb' }}>
-            <strong style={{ fontSize: '15px' }}>Fountain Health</strong>
-            <div style={{ fontSize: '13px', color: '#65676b' }}>2h · 🌐</div>
+          <div style={{ padding: '12px 16px', borderBottom: '1px solid #e4e6eb', display: 'flex', alignItems: 'center', gap: '12px' }}>
+            <img src={BRAND_LOGO} alt={BRAND_NAME} style={{ width: '40px', height: '40px', borderRadius: '50%', objectFit: 'cover' }} />
+            <div>
+              <strong style={{ fontSize: '15px' }}>{BRAND_NAME}</strong>
+              <div style={{ fontSize: '13px', color: '#65676b' }}>2h · 🌐</div>
+            </div>
           </div>
           <div style={{ padding: '12px 16px', fontSize: '15px', lineHeight: '1.3333', color: '#050505', whiteSpace: 'pre-wrap' }}>
             {content || 'Your Facebook post will appear here...'}
@@ -573,7 +581,7 @@ export default function SocialPreviewPro() {
               <div style={{ fontSize: '32px', marginBottom: '12px' }}>🎨</div>
               <h3 style={{ fontSize: '18px', fontWeight: '700', marginBottom: '8px', fontFamily: 'Inter, sans-serif' }}>Brand Consistency</h3>
               <p style={{ fontSize: '14px', lineHeight: '1.6', color: '#666', fontFamily: 'Inter, sans-serif', margin: 0 }}>
-                Access Fountain's brand colors, fonts, and assets instantly. No more hunting through Dropbox.
+                Access Fountain Vitality's brand colors, fonts, and assets instantly. No more hunting through Dropbox.
               </p>
             </div>
             <div style={{ padding: '24px', background: '#f8f9fa', borderRadius: '12px', border: '2px solid #e0e0e0' }}>
@@ -689,7 +697,7 @@ export default function SocialPreviewPro() {
               </div>
               <div>
                 <strong>📦 Brand Assets Button:</strong><br />
-                Fountain colors, fonts, and logos
+                Fountain Vitality colors, fonts, and logos
               </div>
               <div>
                 <strong>📊 Performance Button:</strong><br />
@@ -1038,4 +1046,5 @@ export default function SocialPreviewPro() {
     </div>
   );
 }
+
 
