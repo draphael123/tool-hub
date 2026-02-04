@@ -505,242 +505,63 @@ export default function SocialPreviewPro() {
   const performancePrediction = showPerformance ? predictPerformance() : null;
 
   return (
-    <div style={{ minHeight: '100vh', background: '#f1f5f9', padding: '40px 20px', fontFamily: 'Inter, sans-serif' }}>
+    <div style={{ minHeight: '100vh', background: '#fff', padding: '20px 24px', fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif' }}>
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
         * { box-sizing: border-box; }
-        .platform-btn { background: #fff; border: 1px solid #e2e8f0; color: #475569; padding: 10px 18px; border-radius: 10px; cursor: pointer; transition: all 0.2s ease; font-family: 'Inter', sans-serif; font-weight: 500; font-size: 13px; display: flex; align-items: center; gap: 8px; }
-        .platform-btn:hover { background: #f8fafc; border-color: #2DD4BF; color: #0f2a3d; }
-        .platform-btn.active { background: #0f2a3d; color: #2DD4BF; border-color: #0f2a3d; }
-        .preview-card { padding: 24px; border-radius: 16px; animation: fadeIn 0.4s ease-out; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        textarea:focus, input:focus { outline: none; border-color: #2DD4BF !important; }
-        .char-counter { position: absolute; bottom: 12px; right: 16px; font-size: 12px; font-family: 'Inter', sans-serif; font-weight: 600; }
-        .copy-btn { background: #0f2a3d; color: #fff; border: none; padding: 10px 18px; border-radius: 8px; cursor: pointer; font-family: 'Inter', sans-serif; font-weight: 600; font-size: 13px; transition: all 0.2s ease; display: flex; align-items: center; gap: 8px; }
-        .copy-btn:hover { background: #1a4158; }
-        .copy-btn.success { background: #0d9488; }
-        .media-thumb { position: relative; width: 80px; height: 80px; border-radius: 10px; overflow: hidden; border: 2px solid #e2e8f0; cursor: pointer; transition: all 0.2s ease; }
-        .media-thumb:hover { border-color: #2DD4BF; }
-        .media-thumb.active { border-color: #2DD4BF; box-shadow: 0 0 0 3px rgba(45, 212, 191, 0.2); }
-        .remove-btn { position: absolute; top: 4px; right: 4px; background: rgba(15, 42, 61, 0.9); color: #fff; border: none; border-radius: 50%; width: 20px; height: 20px; cursor: pointer; font-size: 12px; opacity: 0; transition: opacity 0.2s ease; z-index: 10; }
+        .platform-btn { background: transparent; border: none; color: #64748b; padding: 8px 12px; border-radius: 6px; cursor: pointer; transition: all 0.15s; font-family: inherit; font-weight: 500; font-size: 13px; display: flex; align-items: center; gap: 6px; }
+        .platform-btn:hover { background: #f1f5f9; color: #0f172a; }
+        .platform-btn.active { background: #0f172a; color: #fff; }
+        .preview-card { padding: 20px; border-radius: 12px; }
+        textarea:focus, input:focus { outline: none; box-shadow: 0 0 0 2px rgba(15, 23, 42, 0.1); }
+        .char-counter { position: absolute; bottom: 8px; right: 12px; font-size: 11px; font-weight: 500; }
+        .copy-btn { background: #0f172a; color: #fff; border: none; padding: 8px 14px; border-radius: 6px; cursor: pointer; font-family: inherit; font-weight: 500; font-size: 12px; transition: all 0.15s; display: flex; align-items: center; gap: 6px; }
+        .copy-btn:hover { background: #1e293b; }
+        .copy-btn.success { background: #059669; }
+        .media-thumb { position: relative; width: 64px; height: 64px; border-radius: 8px; overflow: hidden; border: 2px solid #e2e8f0; cursor: pointer; transition: all 0.15s; }
+        .media-thumb:hover { border-color: #94a3b8; }
+        .media-thumb.active { border-color: #0f172a; }
+        .remove-btn { position: absolute; top: 2px; right: 2px; background: #0f172a; color: #fff; border: none; border-radius: 50%; width: 18px; height: 18px; cursor: pointer; font-size: 11px; opacity: 0; transition: opacity 0.15s; z-index: 10; }
         .media-thumb:hover .remove-btn { opacity: 1; }
-        .panel { background: #fff; padding: 24px; border-radius: 14px; margin-bottom: 16px; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05); border: 1px solid #e2e8f0; }
-        .panel h3 { margin: 0 0 16px 0; font-size: 16px; font-weight: 600; color: #0f2a3d; }
-        .tag { display: inline-block; padding: 6px 12px; background: #f1f5f9; border-radius: 8px; margin: 4px; cursor: pointer; font-size: 13px; font-family: 'Inter', sans-serif; transition: all 0.2s ease; color: #475569; }
-        .tag:hover { background: #0f2a3d; color: #2DD4BF; }
-        .emoji-btn { background: none; border: none; font-size: 24px; cursor: pointer; padding: 8px; transition: transform 0.15s ease; }
-        .emoji-btn:hover { transform: scale(1.15); }
+        .panel { background: #fff; padding: 20px; border-radius: 12px; margin-bottom: 12px; border: 1px solid #e2e8f0; }
+        .panel h3 { margin: 0 0 12px 0; font-size: 13px; font-weight: 600; color: #0f172a; text-transform: uppercase; letter-spacing: 0.5px; }
+        .tag { display: inline-block; padding: 5px 10px; background: #f8fafc; border-radius: 4px; margin: 3px; cursor: pointer; font-size: 12px; font-family: inherit; transition: all 0.15s; color: #475569; border: 1px solid #e2e8f0; }
+        .tag:hover { background: #0f172a; color: #fff; border-color: #0f172a; }
+        .emoji-btn { background: none; border: none; font-size: 20px; cursor: pointer; padding: 4px; transition: transform 0.1s; }
+        .emoji-btn:hover { transform: scale(1.1); }
       `}</style>
 
-      <div style={{ maxWidth: '1800px', margin: '0 auto' }}>
-        {/* Header */}
-        <div style={{ textAlign: 'center', marginBottom: '40px' }}>
-          <div style={{ display: 'inline-flex', alignItems: 'center', gap: '12px', marginBottom: '8px' }}>
-            <img src={BRAND_LOGO} alt={BRAND_NAME} style={{ width: '48px', height: '48px' }} />
-            <h1 style={{ fontSize: '32px', fontWeight: '700', color: '#0f2a3d', margin: 0, letterSpacing: '-0.5px' }}>
-              Social Preview Pro
-            </h1>
+      <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
+        {/* Minimal Header */}
+        <header style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '24px', paddingBottom: '16px', borderBottom: '1px solid #e2e8f0' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+            <img src={BRAND_LOGO} alt={BRAND_NAME} style={{ width: '32px', height: '32px' }} />
+            <span style={{ fontSize: '15px', fontWeight: '600', color: '#0f2a3d' }}>Social Preview</span>
           </div>
-          <p style={{ fontSize: '15px', color: '#64748b', margin: 0 }}>
-            Preview and perfect your social content before publishing
-          </p>
-        </div>
+          <div style={{ fontSize: '12px', color: '#94a3b8' }}>by {BRAND_NAME}</div>
+        </header>
 
-        {/* Benefits Section */}
-        <div style={{ background: '#0f2a3d', borderRadius: '24px', padding: '56px 40px', marginBottom: '32px', position: 'relative', overflow: 'hidden' }}>
-          {/* Decorative elements */}
-          <div style={{ position: 'absolute', top: '-60px', right: '-60px', width: '200px', height: '200px', borderRadius: '50%', background: 'rgba(45, 212, 191, 0.1)', pointerEvents: 'none' }} />
-          <div style={{ position: 'absolute', bottom: '-40px', left: '10%', width: '120px', height: '120px', borderRadius: '50%', background: 'rgba(45, 212, 191, 0.05)', pointerEvents: 'none' }} />
-          
-          <h2 style={{ fontSize: '32px', fontWeight: '700', textAlign: 'center', marginBottom: '48px', color: '#fff', fontFamily: 'Inter, sans-serif', letterSpacing: '-0.5px' }}>
-            Why Your Team Will Love This
-          </h2>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '20px', position: 'relative' }}>
-            <div style={{ padding: '28px', background: 'rgba(255,255,255,0.03)', borderRadius: '16px', border: '1px solid rgba(45, 212, 191, 0.2)', backdropFilter: 'blur(10px)' }}>
-              <div style={{ width: '44px', height: '44px', borderRadius: '12px', background: 'linear-gradient(135deg, #2DD4BF 0%, #14B8A6 100%)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '16px' }}>
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0f2a3d" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-              </div>
-              <h3 style={{ fontSize: '17px', fontWeight: '600', marginBottom: '8px', fontFamily: 'Inter, sans-serif', color: '#fff' }}>Save 2+ Hours Daily</h3>
-              <p style={{ fontSize: '14px', lineHeight: '1.6', color: 'rgba(255,255,255,0.6)', fontFamily: 'Inter, sans-serif', margin: 0 }}>
-                No more switching between platforms, schedulers, and design tools. Everything in one place.
-              </p>
-            </div>
-            <div style={{ padding: '28px', background: 'rgba(255,255,255,0.03)', borderRadius: '16px', border: '1px solid rgba(45, 212, 191, 0.2)', backdropFilter: 'blur(10px)' }}>
-              <div style={{ width: '44px', height: '44px', borderRadius: '12px', background: 'linear-gradient(135deg, #2DD4BF 0%, #14B8A6 100%)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '16px' }}>
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0f2a3d" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-              </div>
-              <h3 style={{ fontSize: '17px', fontWeight: '600', marginBottom: '8px', fontFamily: 'Inter, sans-serif', color: '#fff' }}>Zero Format Errors</h3>
-              <p style={{ fontSize: '14px', lineHeight: '1.6', color: 'rgba(255,255,255,0.6)', fontFamily: 'Inter, sans-serif', margin: 0 }}>
-                See exactly how your post looks before publishing. Catch cropping issues and character limits.
-              </p>
-            </div>
-            <div style={{ padding: '28px', background: 'rgba(255,255,255,0.03)', borderRadius: '16px', border: '1px solid rgba(45, 212, 191, 0.2)', backdropFilter: 'blur(10px)' }}>
-              <div style={{ width: '44px', height: '44px', borderRadius: '12px', background: 'linear-gradient(135deg, #2DD4BF 0%, #14B8A6 100%)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '16px' }}>
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0f2a3d" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="12" y1="20" x2="12" y2="10"/><line x1="18" y1="20" x2="18" y2="4"/><line x1="6" y1="20" x2="6" y2="16"/></svg>
-              </div>
-              <h3 style={{ fontSize: '17px', fontWeight: '600', marginBottom: '8px', fontFamily: 'Inter, sans-serif', color: '#fff' }}>Better Performance</h3>
-              <p style={{ fontSize: '14px', lineHeight: '1.6', color: 'rgba(255,255,255,0.6)', fontFamily: 'Inter, sans-serif', margin: 0 }}>
-                Smart predictions, trending hashtags, and best-time recommendations drive higher engagement.
-              </p>
-            </div>
-            <div style={{ padding: '28px', background: 'rgba(255,255,255,0.03)', borderRadius: '16px', border: '1px solid rgba(45, 212, 191, 0.2)', backdropFilter: 'blur(10px)' }}>
-              <div style={{ width: '44px', height: '44px', borderRadius: '12px', background: 'linear-gradient(135deg, #2DD4BF 0%, #14B8A6 100%)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '16px' }}>
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0f2a3d" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-              </div>
-              <h3 style={{ fontSize: '17px', fontWeight: '600', marginBottom: '8px', fontFamily: 'Inter, sans-serif', color: '#fff' }}>Accessibility Built-In</h3>
-              <p style={{ fontSize: '14px', lineHeight: '1.6', color: 'rgba(255,255,255,0.6)', fontFamily: 'Inter, sans-serif', margin: 0 }}>
-                Add alt text to every image. Improve SEO and reach more people with screen reader support.
-              </p>
-            </div>
-            <div style={{ padding: '28px', background: 'rgba(255,255,255,0.03)', borderRadius: '16px', border: '1px solid rgba(45, 212, 191, 0.2)', backdropFilter: 'blur(10px)' }}>
-              <div style={{ width: '44px', height: '44px', borderRadius: '12px', background: 'linear-gradient(135deg, #2DD4BF 0%, #14B8A6 100%)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '16px' }}>
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0f2a3d" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
-              </div>
-              <h3 style={{ fontSize: '17px', fontWeight: '600', marginBottom: '8px', fontFamily: 'Inter, sans-serif', color: '#fff' }}>Brand Consistency</h3>
-              <p style={{ fontSize: '14px', lineHeight: '1.6', color: 'rgba(255,255,255,0.6)', fontFamily: 'Inter, sans-serif', margin: 0 }}>
-                Access Fountain Vitality's brand colors, fonts, and assets instantly from one place.
-              </p>
-            </div>
-            <div style={{ padding: '28px', background: 'rgba(255,255,255,0.03)', borderRadius: '16px', border: '1px solid rgba(45, 212, 191, 0.2)', backdropFilter: 'blur(10px)' }}>
-              <div style={{ width: '44px', height: '44px', borderRadius: '12px', background: 'linear-gradient(135deg, #2DD4BF 0%, #14B8A6 100%)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '16px' }}>
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0f2a3d" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
-              </div>
-              <h3 style={{ fontSize: '17px', fontWeight: '600', marginBottom: '8px', fontFamily: 'Inter, sans-serif', color: '#fff' }}>Reusable Templates</h3>
-              <p style={{ fontSize: '14px', lineHeight: '1.6', color: 'rgba(255,255,255,0.6)', fontFamily: 'Inter, sans-serif', margin: 0 }}>
-                Create once, reuse forever. Save your best-performing post formats as templates.
-              </p>
-            </div>
-          </div>
-        </div>
-
-        {/* How to Use Section */}
-        <div style={{ background: '#fff', borderRadius: '24px', padding: '56px 40px', marginBottom: '32px', boxShadow: '0 4px 24px rgba(0, 0, 0, 0.08)' }}>
-          <div style={{ display: 'inline-block', padding: '6px 14px', background: '#e6faf8', borderRadius: '20px', marginBottom: '16px', fontSize: '13px', fontWeight: '600', color: '#0d9488', fontFamily: 'Inter, sans-serif', letterSpacing: '0.5px' }}>
-            QUICK START
-          </div>
-          <h2 style={{ fontSize: '32px', fontWeight: '700', marginBottom: '48px', color: '#0f2a3d', fontFamily: 'Inter, sans-serif', letterSpacing: '-0.5px' }}>
-            How to Use Social Preview Pro
-          </h2>
-          
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '0', maxWidth: '900px', position: 'relative' }}>
-            {/* Vertical line connector */}
-            <div style={{ position: 'absolute', left: '23px', top: '48px', bottom: '48px', width: '2px', background: 'linear-gradient(180deg, #2DD4BF 0%, #0d9488 100%)', borderRadius: '2px' }} />
-            
-            {/* Step 1 */}
-            <div style={{ display: 'flex', gap: '28px', alignItems: 'start', paddingBottom: '40px', position: 'relative' }}>
-              <div style={{ minWidth: '48px', width: '48px', height: '48px', borderRadius: '14px', background: '#0f2a3d', color: '#2DD4BF', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '20px', fontWeight: '700', flexShrink: 0, fontFamily: 'Inter, sans-serif', zIndex: 1 }}>01</div>
-              <div style={{ flex: 1, paddingTop: '4px' }}>
-                <h3 style={{ fontSize: '18px', fontWeight: '600', marginBottom: '8px', fontFamily: 'Inter, sans-serif', color: '#0f2a3d' }}>Upload Your Media</h3>
-                <p style={{ fontSize: '15px', lineHeight: '1.7', color: '#64748b', fontFamily: 'Inter, sans-serif', margin: '0 0 14px 0' }}>
-                  Drag and drop up to 10 images or videos. The tool automatically checks aspect ratios and warns you about cropping.
-                </p>
-                <div style={{ padding: '10px 14px', background: '#f0fdfa', borderRadius: '8px', fontSize: '13px', fontFamily: 'Inter, sans-serif', color: '#0d9488', fontWeight: '500', borderLeft: '3px solid #2DD4BF' }}>
-                  Tip: Use the Accessibility button to add alt text for SEO
-                </div>
-              </div>
-            </div>
-
-            {/* Step 2 */}
-            <div style={{ display: 'flex', gap: '28px', alignItems: 'start', paddingBottom: '40px', position: 'relative' }}>
-              <div style={{ minWidth: '48px', width: '48px', height: '48px', borderRadius: '14px', background: '#0f2a3d', color: '#2DD4BF', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '20px', fontWeight: '700', flexShrink: 0, fontFamily: 'Inter, sans-serif', zIndex: 1 }}>02</div>
-              <div style={{ flex: 1, paddingTop: '4px' }}>
-                <h3 style={{ fontSize: '18px', fontWeight: '600', marginBottom: '8px', fontFamily: 'Inter, sans-serif', color: '#0f2a3d' }}>Write Your Caption</h3>
-                <p style={{ fontSize: '15px', lineHeight: '1.7', color: '#64748b', fontFamily: 'Inter, sans-serif', margin: '0 0 14px 0' }}>
-                  Type your caption and use the Hashtag panel for trending tags. For Instagram, add hashtags to the "First Comment" field.
-                </p>
-                <div style={{ padding: '10px 14px', background: '#f0fdfa', borderRadius: '8px', fontSize: '13px', fontFamily: 'Inter, sans-serif', color: '#0d9488', fontWeight: '500', borderLeft: '3px solid #2DD4BF' }}>
-                  Tip: Auto-saves every 30 seconds so you never lose work
-                </div>
-              </div>
-            </div>
-
-            {/* Step 3 */}
-            <div style={{ display: 'flex', gap: '28px', alignItems: 'start', paddingBottom: '40px', position: 'relative' }}>
-              <div style={{ minWidth: '48px', width: '48px', height: '48px', borderRadius: '14px', background: '#0f2a3d', color: '#2DD4BF', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '20px', fontWeight: '700', flexShrink: 0, fontFamily: 'Inter, sans-serif', zIndex: 1 }}>03</div>
-              <div style={{ flex: 1, paddingTop: '4px' }}>
-                <h3 style={{ fontSize: '18px', fontWeight: '600', marginBottom: '8px', fontFamily: 'Inter, sans-serif', color: '#0f2a3d' }}>Preview All Platforms</h3>
-                <p style={{ fontSize: '15px', lineHeight: '1.7', color: '#64748b', fontFamily: 'Inter, sans-serif', margin: '0 0 14px 0' }}>
-                  Switch between Instagram, LinkedIn, Twitter, TikTok, and Facebook. Use Compare Mode to view 2-3 platforms side-by-side.
-                </p>
-                <div style={{ padding: '10px 14px', background: '#f0fdfa', borderRadius: '8px', fontSize: '13px', fontFamily: 'Inter, sans-serif', color: '#0d9488', fontWeight: '500', borderLeft: '3px solid #2DD4BF' }}>
-                  Tip: Videos show realistic controls for each platform
-                </div>
-              </div>
-            </div>
-
-            {/* Step 4 */}
-            <div style={{ display: 'flex', gap: '28px', alignItems: 'start', position: 'relative' }}>
-              <div style={{ minWidth: '48px', width: '48px', height: '48px', borderRadius: '14px', background: '#0f2a3d', color: '#2DD4BF', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '20px', fontWeight: '700', flexShrink: 0, fontFamily: 'Inter, sans-serif', zIndex: 1 }}>04</div>
-              <div style={{ flex: 1, paddingTop: '4px' }}>
-                <h3 style={{ fontSize: '18px', fontWeight: '600', marginBottom: '8px', fontFamily: 'Inter, sans-serif', color: '#0f2a3d' }}>Check Performance</h3>
-                <p style={{ fontSize: '15px', lineHeight: '1.7', color: '#64748b', fontFamily: 'Inter, sans-serif', margin: '0 0 14px 0' }}>
-                  Get an engagement score, estimated reach, and optimization tips based on your content type, hashtags, and caption length.
-                </p>
-                <div style={{ padding: '10px 14px', background: '#f0fdfa', borderRadius: '8px', fontSize: '13px', fontFamily: 'Inter, sans-serif', color: '#0d9488', fontWeight: '500', borderLeft: '3px solid #2DD4BF' }}>
-                  Tip: Posts with video + 5 hashtags score 30-40 points higher
-                </div>
-              </div>
-            </div>
-
-          </div>
-
-          {/* Quick Reference - Minimal grid */}
-          <div style={{ marginTop: '56px', paddingTop: '40px', borderTop: '1px solid #e2e8f0' }}>
-            <h3 style={{ fontSize: '14px', fontWeight: '600', marginBottom: '20px', color: '#94a3b8', fontFamily: 'Inter, sans-serif', letterSpacing: '1px', textTransform: 'uppercase' }}>Feature Reference</h3>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '12px', fontSize: '13px', fontFamily: 'Inter, sans-serif' }}>
-              <div style={{ padding: '12px 16px', background: '#f8fafc', borderRadius: '8px', color: '#475569' }}>
-                <span style={{ fontWeight: '600', color: '#0f2a3d' }}>Drafts</span> — saved posts & templates
-              </div>
-              <div style={{ padding: '12px 16px', background: '#f8fafc', borderRadius: '8px', color: '#475569' }}>
-                <span style={{ fontWeight: '600', color: '#0f2a3d' }}>Hashtags</span> — trending wellness tags
-              </div>
-              <div style={{ padding: '12px 16px', background: '#f8fafc', borderRadius: '8px', color: '#475569' }}>
-                <span style={{ fontWeight: '600', color: '#0f2a3d' }}>Emojis</span> — quick picker by category
-              </div>
-              <div style={{ padding: '12px 16px', background: '#f8fafc', borderRadius: '8px', color: '#475569' }}>
-                <span style={{ fontWeight: '600', color: '#0f2a3d' }}>Accessibility</span> — alt text editor
-              </div>
-              <div style={{ padding: '12px 16px', background: '#f8fafc', borderRadius: '8px', color: '#475569' }}>
-                <span style={{ fontWeight: '600', color: '#0f2a3d' }}>Brand Assets</span> — colors & fonts
-              </div>
-              <div style={{ padding: '12px 16px', background: '#f8fafc', borderRadius: '8px', color: '#475569' }}>
-                <span style={{ fontWeight: '600', color: '#0f2a3d' }}>Performance</span> — engagement score
-              </div>
-              <div style={{ padding: '12px 16px', background: '#f8fafc', borderRadius: '8px', color: '#475569' }}>
-                <span style={{ fontWeight: '600', color: '#0f2a3d' }}>Compare</span> — multi-platform view
-              </div>
-              <div style={{ padding: '12px 16px', background: '#f8fafc', borderRadius: '8px', color: '#475569' }}>
-                <span style={{ fontWeight: '600', color: '#0f2a3d' }}>Export</span> — download previews
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Top Toolbar */}
-        <div style={{ display: 'flex', gap: '12px', marginBottom: '24px', flexWrap: 'wrap', justifyContent: 'center' }}>
-          <button onClick={() => setViewMode(viewMode === 'single' ? 'compare' : 'single')} className="platform-btn">
-            <Grid size={16} /> {viewMode === 'single' ? 'Compare Mode' : 'Single Mode'}
+        {/* Toolbar */}
+        <div style={{ display: 'flex', gap: '4px', marginBottom: '20px', padding: '6px', background: '#f8fafc', borderRadius: '8px', width: 'fit-content' }}>
+          <button onClick={() => setViewMode(viewMode === 'single' ? 'compare' : 'single')} className={`platform-btn ${viewMode === 'compare' ? 'active' : ''}`}>
+            <Grid size={14} /> Compare
           </button>
-          <button onClick={() => setShowDrafts(!showDrafts)} className="platform-btn">
-            <FileText size={16} /> Drafts ({drafts.length})
+          <button onClick={() => setShowDrafts(!showDrafts)} className={`platform-btn ${showDrafts ? 'active' : ''}`}>
+            <FileText size={14} /> Drafts
           </button>
-          <button onClick={() => setShowHashtagPanel(!showHashtagPanel)} className="platform-btn">
-            <Hash size={16} /> Hashtags
+          <button onClick={() => setShowHashtagPanel(!showHashtagPanel)} className={`platform-btn ${showHashtagPanel ? 'active' : ''}`}>
+            <Hash size={14} /> Tags
           </button>
-          <button onClick={() => setShowEmojiPicker(!showEmojiPicker)} className="platform-btn">
-            <Smile size={16} /> Emojis
+          <button onClick={() => setShowEmojiPicker(!showEmojiPicker)} className={`platform-btn ${showEmojiPicker ? 'active' : ''}`}>
+            <Smile size={14} />
           </button>
-          <button onClick={() => setShowAccessibility(!showAccessibility)} className="platform-btn">
-            <Eye size={16} /> Accessibility
+          <button onClick={() => setShowAccessibility(!showAccessibility)} className={`platform-btn ${showAccessibility ? 'active' : ''}`}>
+            <Eye size={14} /> Alt
           </button>
-          <button onClick={() => setShowBrandLibrary(!showBrandLibrary)} className="platform-btn">
-            <Package size={16} /> Brand Assets
+          <button onClick={() => setShowBrandLibrary(!showBrandLibrary)} className={`platform-btn ${showBrandLibrary ? 'active' : ''}`}>
+            <Package size={14} /> Brand
           </button>
-          <button onClick={() => setShowPerformance(!showPerformance)} className="platform-btn">
-            <TrendingUp size={16} /> Performance
-          </button>
-          <button onClick={exportScreenshot} className="platform-btn">
-            <Download size={16} /> Export
+          <button onClick={() => setShowPerformance(!showPerformance)} className={`platform-btn ${showPerformance ? 'active' : ''}`}>
+            <TrendingUp size={14} />
           </button>
         </div>
 
@@ -766,7 +587,7 @@ export default function SocialPreviewPro() {
                   <button onClick={saveDraft} className="copy-btn" style={{ width: '100%', marginBottom: '12px' }}>
                     <Save size={14} /> Save Current Draft
                   </button>
-                  <button onClick={saveTemplate} className="copy-btn" style={{ width: '100%', marginBottom: '16px', background: '#667eea' }}>
+                  <button onClick={saveTemplate} className="copy-btn" style={{ width: '100%', marginBottom: '16px', background: '#475569' }}>
                     <Save size={14} /> Save as Template
                   </button>
                   <div style={{ maxHeight: '300px', overflowY: 'auto' }}>
@@ -896,36 +717,33 @@ export default function SocialPreviewPro() {
           )}
 
           {/* Main Content Area */}
-          <div style={{ display: 'grid', gridTemplateColumns: viewMode === 'single' ? '1fr 1fr' : '1fr', gap: '24px' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: viewMode === 'single' ? '1fr 1fr' : '1fr', gap: '20px' }}>
             {/* Editor */}
-            <div style={{ background: 'rgba(255, 255, 255, 0.95)', padding: '32px', borderRadius: '16px', boxShadow: '0 20px 60px rgba(0, 0, 0, 0.3)' }}>
-              <h2 style={{ fontSize: '24px', fontWeight: '700', marginBottom: '24px' }}>Content Editor</h2>
+            <div style={{ background: '#fff', padding: '24px', borderRadius: '12px', border: '1px solid #e2e8f0' }}>
               
               {/* Aspect Ratio Warnings */}
               {aspectWarnings.length > 0 && (
-                <div style={{ background: '#fff3cd', border: '1px solid #ffc107', borderRadius: '8px', padding: '12px', marginBottom: '16px', display: 'flex', gap: '8px', alignItems: 'start' }}>
-                  <AlertTriangle size={20} color="#ffc107" />
-                  <div style={{ fontSize: '13px', fontFamily: 'Inter, sans-serif' }}>
-                    {aspectWarnings.map((warning, idx) => <div key={idx}>{warning}</div>)}
-                  </div>
+                <div style={{ background: '#fef3c7', border: '1px solid #f59e0b', borderRadius: '6px', padding: '10px 12px', marginBottom: '16px', display: 'flex', gap: '8px', alignItems: 'center', fontSize: '13px' }}>
+                  <AlertTriangle size={16} color="#d97706" />
+                  {aspectWarnings.map((warning, idx) => <span key={idx}>{warning}</span>)}
                 </div>
               )}
               
               {/* Media Upload */}
-              <div style={{ marginBottom: '24px' }}>
-                <label style={{ display: 'block', marginBottom: '8px', fontSize: '14px', fontWeight: '600', fontFamily: 'Inter, sans-serif' }}>
-                  Upload Images & Videos (up to 10)
+              <div style={{ marginBottom: '20px' }}>
+                <label style={{ display: 'block', marginBottom: '6px', fontSize: '12px', fontWeight: '600', color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+                  Media
                 </label>
-                <label style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '12px', padding: '24px', border: '2px dashed #764ba2', borderRadius: '12px', cursor: 'pointer', background: media.length > 0 ? '#f8f9fa' : 'transparent' }}>
-                  <Upload size={24} color="#764ba2" />
-                  <span style={{ fontSize: '14px', fontWeight: '600', color: '#764ba2', fontFamily: 'Inter, sans-serif' }}>
-                    {media.length > 0 ? `${media.length} file${media.length > 1 ? 's' : ''} uploaded` : 'Choose images or videos'}
+                <label style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', padding: '20px', border: '1px dashed #cbd5e1', borderRadius: '8px', cursor: 'pointer', background: '#f8fafc', transition: 'all 0.15s' }}>
+                  <Upload size={18} color="#64748b" />
+                  <span style={{ fontSize: '13px', color: '#64748b' }}>
+                    {media.length > 0 ? `${media.length} file${media.length > 1 ? 's' : ''}` : 'Drop files or click'}
                   </span>
                   <input type="file" accept="image/*,video/*" multiple onChange={handleMediaUpload} style={{ display: 'none' }} />
                 </label>
 
                 {media.length > 0 && (
-                  <div style={{ display: 'flex', gap: '8px', marginTop: '12px', flexWrap: 'wrap' }}>
+                  <div style={{ display: 'flex', gap: '6px', marginTop: '10px', flexWrap: 'wrap' }}>
                     {media.map((item, idx) => (
                       <div key={idx} className={`media-thumb ${idx === currentMediaIndex ? 'active' : ''}`} onClick={() => setCurrentMediaIndex(idx)}>
                         {item.type === 'image' ? (
@@ -937,8 +755,8 @@ export default function SocialPreviewPro() {
                       </div>
                     ))}
                     {media.length < 10 && (
-                      <label className="media-thumb" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#f8f9fa' }}>
-                        <Plus size={32} color="#764ba2" />
+                      <label className="media-thumb" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#f8fafc' }}>
+                        <Plus size={20} color="#94a3b8" />
                         <input type="file" accept="image/*,video/*" multiple onChange={handleMediaUpload} style={{ display: 'none' }} />
                       </label>
                     )}
@@ -947,68 +765,66 @@ export default function SocialPreviewPro() {
               </div>
 
               {/* Caption */}
-              <div style={{ position: 'relative', marginBottom: '24px' }}>
-                <label style={{ display: 'block', marginBottom: '8px', fontSize: '14px', fontWeight: '600', fontFamily: 'Inter, sans-serif' }}>Caption / Post Text</label>
+              <div style={{ position: 'relative', marginBottom: '20px' }}>
+                <label style={{ display: 'block', marginBottom: '6px', fontSize: '12px', fontWeight: '600', color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Caption</label>
                 <textarea
                   value={content}
                   onChange={(e) => setContent(e.target.value)}
-                  placeholder="Write your post content here..."
-                  style={{ width: '100%', minHeight: '150px', padding: '16px', border: '2px solid #e0e0e0', borderRadius: '12px', fontSize: '15px', fontFamily: 'Inter, sans-serif', lineHeight: '1.5', resize: 'vertical' }}
+                  placeholder="Write your caption..."
+                  style={{ width: '100%', minHeight: '120px', padding: '12px', border: '1px solid #e2e8f0', borderRadius: '8px', fontSize: '14px', fontFamily: 'inherit', lineHeight: '1.5', resize: 'vertical' }}
                 />
                 <div className="char-counter" style={{ color: status.color }}>
-                  {content.length} / {platforms[viewMode === 'single' ? selectedPlatform : selectedPlatforms[0]].limit}
+                  {content.length}/{platforms[viewMode === 'single' ? selectedPlatform : selectedPlatforms[0]].limit}
                 </div>
               </div>
 
               {/* First Comment */}
               {((viewMode === 'single' && selectedPlatform === 'instagram') || (viewMode === 'compare' && selectedPlatforms.includes('instagram'))) && (
-                <div style={{ position: 'relative', marginBottom: '24px' }}>
-                  <label style={{ display: 'block', marginBottom: '8px', fontSize: '14px', fontWeight: '600', fontFamily: 'Inter, sans-serif' }}>First Comment (Instagram)</label>
+                <div style={{ position: 'relative', marginBottom: '20px' }}>
+                  <label style={{ display: 'block', marginBottom: '6px', fontSize: '12px', fontWeight: '600', color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.5px' }}>First Comment</label>
                   <textarea
                     value={firstComment}
                     onChange={(e) => setFirstComment(e.target.value)}
-                    placeholder="Add hashtags or additional info..."
-                    style={{ width: '100%', minHeight: '80px', padding: '16px', border: '2px solid #e0e0e0', borderRadius: '12px', fontSize: '15px', fontFamily: 'Inter, sans-serif', lineHeight: '1.5', resize: 'vertical' }}
+                    placeholder="Hashtags for first comment..."
+                    style={{ width: '100%', minHeight: '60px', padding: '12px', border: '1px solid #e2e8f0', borderRadius: '8px', fontSize: '14px', fontFamily: 'inherit', lineHeight: '1.5', resize: 'vertical' }}
                   />
-                  <div className="char-counter" style={{ color: firstComment.length > 2200 ? '#e74c3c' : '#2ecc71' }}>
-                    {firstComment.length} / 2200
+                  <div className="char-counter" style={{ color: firstComment.length > 2200 ? '#dc2626' : '#64748b' }}>
+                    {firstComment.length}/2200
                   </div>
                 </div>
               )}
 
               {/* Copy Buttons */}
-              <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', marginBottom: '24px' }}>
+              <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap', marginBottom: '16px' }}>
                 {(viewMode === 'single' ? [selectedPlatform] : selectedPlatforms).map(platform => (
                   <button key={platform} onClick={() => copyToClipboard(platform)} className={`copy-btn ${copySuccess === platform ? 'success' : ''}`}>
-                    {copySuccess === platform ? '✓ Copied!' : <><Copy size={14} /> Copy for {platforms[platform].name}</>}
+                    {copySuccess === platform ? '✓' : <><Copy size={12} /> {platforms[platform].name}</>}
                   </button>
                 ))}
               </div>
 
-              {/* Platform Guidelines */}
-              <div style={{ padding: '16px', background: '#f8f9fa', borderRadius: '12px', border: '1px solid #e0e0e0' }}>
-                <div style={{ fontSize: '13px', fontFamily: 'Inter, sans-serif', color: '#666', marginBottom: '8px', fontWeight: '600' }}>Platform Guidelines</div>
-                {(viewMode === 'single' ? [selectedPlatform] : selectedPlatforms).map(platform => (
-                  <div key={platform} style={{ fontSize: '12px', fontFamily: 'Inter, sans-serif', color: '#666', lineHeight: '1.5', marginBottom: '12px', paddingBottom: '12px', borderBottom: '1px solid #e0e0e0' }}>
-                    <strong>{platforms[platform].name}</strong><br />
-                    📝 {platforms[platform].limit.toLocaleString()} chars | 📐 {platforms[platform].aspectRatios.join(', ')}<br />
-                    🎬 {platforms[platform].videoLength} ({platforms[platform].videoFormats})<br />
-                    <span style={{ color: '#764ba2' }}>💡 {platforms[platform].videoNote}</span>
-                  </div>
-                ))}
-              </div>
+              {/* Platform Info - Collapsed */}
+              <details style={{ fontSize: '12px', color: '#64748b' }}>
+                <summary style={{ cursor: 'pointer', fontWeight: '500', marginBottom: '8px' }}>Platform specs</summary>
+                <div style={{ padding: '12px', background: '#f8fafc', borderRadius: '6px', marginTop: '8px' }}>
+                  {(viewMode === 'single' ? [selectedPlatform] : selectedPlatforms).map(platform => (
+                    <div key={platform} style={{ marginBottom: '8px', lineHeight: '1.6' }}>
+                      <strong>{platforms[platform].name}:</strong> {platforms[platform].limit.toLocaleString()} chars · {platforms[platform].aspectRatios[0]} · {platforms[platform].videoLength}
+                    </div>
+                  ))}
+                </div>
+              </details>
             </div>
 
             {/* Preview */}
             {viewMode === 'single' ? (
-              <div style={{ background: 'rgba(255, 255, 255, 0.95)', padding: '32px', borderRadius: '16px', boxShadow: '0 20px 60px rgba(0, 0, 0, 0.3)' }}>
-                <h2 style={{ fontSize: '24px', fontWeight: '700', marginBottom: '24px' }}>Platform Preview</h2>
-                <div style={{ display: 'flex', gap: '8px', marginBottom: '24px', flexWrap: 'wrap' }}>
+              <div style={{ background: '#f8fafc', padding: '20px', borderRadius: '12px' }}>
+                <div style={{ display: 'flex', gap: '4px', marginBottom: '16px', padding: '4px', background: '#fff', borderRadius: '8px', width: 'fit-content', border: '1px solid #e2e8f0' }}>
                   {Object.entries(platforms).map(([key, platform]) => {
                     const Icon = platform.icon;
                     return (
-                      <button key={key} className={`platform-btn ${selectedPlatform === key ? 'active' : ''}`} onClick={() => setSelectedPlatform(key)}>
-                        {Icon ? <Icon size={16} /> : '📱'} {platform.name}
+                      <button key={key} className={`platform-btn ${selectedPlatform === key ? 'active' : ''}`} onClick={() => setSelectedPlatform(key)} style={{ padding: '6px 10px', fontSize: '12px' }}>
+                        {Icon ? <Icon size={14} /> : null} {platform.name}
                       </button>
                     );
                   })}
@@ -1016,20 +832,19 @@ export default function SocialPreviewPro() {
                 <div ref={previewRef}>{renderPreview()}</div>
               </div>
             ) : (
-              <div style={{ background: 'rgba(255, 255, 255, 0.95)', padding: '32px', borderRadius: '16px', boxShadow: '0 20px 60px rgba(0, 0, 0, 0.3)' }}>
-                <h2 style={{ fontSize: '24px', fontWeight: '700', marginBottom: '24px' }}>Compare Platforms</h2>
-                <div style={{ display: 'flex', gap: '8px', marginBottom: '24px', flexWrap: 'wrap' }}>
+              <div style={{ background: '#f8fafc', padding: '20px', borderRadius: '12px' }}>
+                <div style={{ display: 'flex', gap: '4px', marginBottom: '16px', padding: '4px', background: '#fff', borderRadius: '8px', width: 'fit-content', border: '1px solid #e2e8f0' }}>
                   {Object.entries(platforms).map(([key, platform]) => {
                     const Icon = platform.icon;
                     const isSelected = selectedPlatforms.includes(key);
                     return (
-                      <button key={key} className={`platform-btn ${isSelected ? 'active' : ''}`} onClick={() => togglePlatformInComparison(key)} disabled={!isSelected && selectedPlatforms.length >= 3} style={{ opacity: !isSelected && selectedPlatforms.length >= 3 ? 0.5 : 1 }}>
-                        {Icon ? <Icon size={16} /> : '📱'} {platform.name}
+                      <button key={key} className={`platform-btn ${isSelected ? 'active' : ''}`} onClick={() => togglePlatformInComparison(key)} disabled={!isSelected && selectedPlatforms.length >= 3} style={{ opacity: !isSelected && selectedPlatforms.length >= 3 ? 0.4 : 1, padding: '6px 10px', fontSize: '12px' }}>
+                        {Icon ? <Icon size={14} /> : null} {platform.name}
                       </button>
                     );
                   })}
                 </div>
-                <div ref={previewRef} style={{ display: 'grid', gridTemplateColumns: selectedPlatforms.length === 2 ? '1fr 1fr' : '1fr 1fr 1fr', gap: '24px' }}>
+                <div ref={previewRef} style={{ display: 'grid', gridTemplateColumns: selectedPlatforms.length === 2 ? '1fr 1fr' : '1fr 1fr 1fr', gap: '16px' }}>
                   {selectedPlatforms.map(platform => <div key={platform}>{renderPreview(platform)}</div>)}
                 </div>
               </div>
@@ -1039,8 +854,8 @@ export default function SocialPreviewPro() {
 
         {/* Mute Button */}
         {media.some(item => item.type === 'video') && (
-          <button onClick={() => setIsMuted(!isMuted)} style={{ position: 'fixed', bottom: '24px', right: '24px', background: '#764ba2', color: '#fff', border: 'none', padding: '12px 20px', borderRadius: '50px', cursor: 'pointer', fontFamily: 'Inter, sans-serif', fontWeight: '600', fontSize: '13px', boxShadow: '0 4px 12px rgba(0, 0, 0, 0.3)', display: 'flex', alignItems: 'center', gap: '8px', zIndex: 100 }}>
-            {isMuted ? '🔇 Unmute' : '🔊 Mute'}
+          <button onClick={() => setIsMuted(!isMuted)} style={{ position: 'fixed', bottom: '20px', right: '20px', background: '#0f172a', color: '#fff', border: 'none', padding: '8px 14px', borderRadius: '6px', cursor: 'pointer', fontFamily: 'inherit', fontWeight: '500', fontSize: '12px', display: 'flex', alignItems: 'center', gap: '6px', zIndex: 100 }}>
+            {isMuted ? 'Unmute' : 'Mute'}
           </button>
         )}
       </div>
