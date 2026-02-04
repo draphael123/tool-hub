@@ -56,9 +56,9 @@ export default function SocialPreviewPro() {
   // Feature 8: Brand Assets
   const [showBrandLibrary, setShowBrandLibrary] = useState(false);
   const [brandAssets] = useState({
-    colors: ['#764ba2', '#667eea', '#fd1d1d', '#fcb045', '#2ecc71'],
+    colors: ['#0f2a3d', '#2DD4BF', '#14B8A6', '#0d9488', '#134e4a'],
     logos: ['fountain-logo.png', 'fountain-icon.png'],
-    fonts: ['Fraunces', 'Inter', 'Helvetica']
+    fonts: ['Inter', 'Helvetica Neue', 'Arial']
   });
 
   const platforms = {
@@ -505,89 +505,108 @@ export default function SocialPreviewPro() {
   const performancePrediction = showPerformance ? predictPerformance() : null;
 
   return (
-    <div style={{ minHeight: '100vh', background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)', padding: '40px 20px', fontFamily: '"Fraunces", serif' }}>
+    <div style={{ minHeight: '100vh', background: '#f1f5f9', padding: '40px 20px', fontFamily: 'Inter, sans-serif' }}>
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Fraunces:wght@400;600;700;900&family=Inter:wght@400;500;600&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
         * { box-sizing: border-box; }
-        .platform-btn { background: rgba(255, 255, 255, 0.1); border: 2px solid rgba(255, 255, 255, 0.2); color: #fff; padding: 12px 20px; border-radius: 12px; cursor: pointer; transition: all 0.3s ease; font-family: 'Inter', sans-serif; font-weight: 600; font-size: 14px; display: flex; align-items: center; gap: 8px; }
-        .platform-btn:hover { background: rgba(255, 255, 255, 0.15); transform: translateY(-2px); }
-        .platform-btn.active { background: #fff; color: #764ba2; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); }
-        .preview-card { padding: 24px; border-radius: 16px; animation: fadeIn 0.5s ease-out; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-        textarea:focus, input:focus { outline: none; }
+        .platform-btn { background: #fff; border: 1px solid #e2e8f0; color: #475569; padding: 10px 18px; border-radius: 10px; cursor: pointer; transition: all 0.2s ease; font-family: 'Inter', sans-serif; font-weight: 500; font-size: 13px; display: flex; align-items: center; gap: 8px; }
+        .platform-btn:hover { background: #f8fafc; border-color: #2DD4BF; color: #0f2a3d; }
+        .platform-btn.active { background: #0f2a3d; color: #2DD4BF; border-color: #0f2a3d; }
+        .preview-card { padding: 24px; border-radius: 16px; animation: fadeIn 0.4s ease-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        textarea:focus, input:focus { outline: none; border-color: #2DD4BF !important; }
         .char-counter { position: absolute; bottom: 12px; right: 16px; font-size: 12px; font-family: 'Inter', sans-serif; font-weight: 600; }
-        .copy-btn { background: #764ba2; color: #fff; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-family: 'Inter', sans-serif; font-weight: 600; font-size: 13px; transition: all 0.3s ease; display: flex; align-items: center; gap: 8px; }
-        .copy-btn:hover { background: #5c3a7d; transform: translateY(-2px); }
-        .copy-btn.success { background: #2ecc71; }
-        .media-thumb { position: relative; width: 80px; height: 80px; border-radius: 8px; overflow: hidden; border: 2px solid #e0e0e0; cursor: pointer; transition: all 0.3s ease; }
-        .media-thumb:hover { border-color: #764ba2; transform: scale(1.05); }
-        .media-thumb.active { border-color: #764ba2; box-shadow: 0 0 0 3px rgba(118, 75, 162, 0.2); }
-        .remove-btn { position: absolute; top: 4px; right: 4px; background: rgba(0, 0, 0, 0.7); color: #fff; border: none; border-radius: 50%; width: 20px; height: 20px; cursor: pointer; font-size: 12px; opacity: 0; transition: opacity 0.3s ease; z-index: 10; }
+        .copy-btn { background: #0f2a3d; color: #fff; border: none; padding: 10px 18px; border-radius: 8px; cursor: pointer; font-family: 'Inter', sans-serif; font-weight: 600; font-size: 13px; transition: all 0.2s ease; display: flex; align-items: center; gap: 8px; }
+        .copy-btn:hover { background: #1a4158; }
+        .copy-btn.success { background: #0d9488; }
+        .media-thumb { position: relative; width: 80px; height: 80px; border-radius: 10px; overflow: hidden; border: 2px solid #e2e8f0; cursor: pointer; transition: all 0.2s ease; }
+        .media-thumb:hover { border-color: #2DD4BF; }
+        .media-thumb.active { border-color: #2DD4BF; box-shadow: 0 0 0 3px rgba(45, 212, 191, 0.2); }
+        .remove-btn { position: absolute; top: 4px; right: 4px; background: rgba(15, 42, 61, 0.9); color: #fff; border: none; border-radius: 50%; width: 20px; height: 20px; cursor: pointer; font-size: 12px; opacity: 0; transition: opacity 0.2s ease; z-index: 10; }
         .media-thumb:hover .remove-btn { opacity: 1; }
-        .panel { background: rgba(255, 255, 255, 0.95); padding: 24px; border-radius: 12px; margin-bottom: 16px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); }
-        .panel h3 { margin: 0 0 16px 0; font-size: 18px; font-weight: 700; }
-        .tag { display: inline-block; padding: 6px 12px; background: #f0f0f0; border-radius: 16px; margin: 4px; cursor: pointer; font-size: 13px; font-family: 'Inter', sans-serif; transition: all 0.3s ease; }
-        .tag:hover { background: #764ba2; color: #fff; }
-        .emoji-btn { background: none; border: none; font-size: 24px; cursor: pointer; padding: 8px; transition: transform 0.2s ease; }
-        .emoji-btn:hover { transform: scale(1.2); }
+        .panel { background: #fff; padding: 24px; border-radius: 14px; margin-bottom: 16px; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05); border: 1px solid #e2e8f0; }
+        .panel h3 { margin: 0 0 16px 0; font-size: 16px; font-weight: 600; color: #0f2a3d; }
+        .tag { display: inline-block; padding: 6px 12px; background: #f1f5f9; border-radius: 8px; margin: 4px; cursor: pointer; font-size: 13px; font-family: 'Inter', sans-serif; transition: all 0.2s ease; color: #475569; }
+        .tag:hover { background: #0f2a3d; color: #2DD4BF; }
+        .emoji-btn { background: none; border: none; font-size: 24px; cursor: pointer; padding: 8px; transition: transform 0.15s ease; }
+        .emoji-btn:hover { transform: scale(1.15); }
       `}</style>
 
       <div style={{ maxWidth: '1800px', margin: '0 auto' }}>
         {/* Header */}
-        <div style={{ textAlign: 'center', marginBottom: '32px' }}>
-          <h1 style={{ fontSize: '56px', fontWeight: '900', color: '#fff', margin: '0 0 12px 0', letterSpacing: '-2px' }}>
-            Social Preview Pro
-          </h1>
-          <p style={{ fontSize: '16px', color: 'rgba(255, 255, 255, 0.9)', fontFamily: 'Inter, sans-serif' }}>
-            Professional social media content creation suite
+        <div style={{ textAlign: 'center', marginBottom: '40px' }}>
+          <div style={{ display: 'inline-flex', alignItems: 'center', gap: '12px', marginBottom: '8px' }}>
+            <img src={BRAND_LOGO} alt={BRAND_NAME} style={{ width: '48px', height: '48px' }} />
+            <h1 style={{ fontSize: '32px', fontWeight: '700', color: '#0f2a3d', margin: 0, letterSpacing: '-0.5px' }}>
+              Social Preview Pro
+            </h1>
+          </div>
+          <p style={{ fontSize: '15px', color: '#64748b', margin: 0 }}>
+            Preview and perfect your social content before publishing
           </p>
         </div>
 
         {/* Benefits Section */}
-        <div style={{ background: 'rgba(255, 255, 255, 0.95)', borderRadius: '16px', padding: '40px', marginBottom: '32px', boxShadow: '0 20px 60px rgba(0, 0, 0, 0.3)' }}>
-          <h2 style={{ fontSize: '36px', fontWeight: '900', textAlign: 'center', marginBottom: '32px', color: '#1a1a1a' }}>
+        <div style={{ background: '#0f2a3d', borderRadius: '24px', padding: '56px 40px', marginBottom: '32px', position: 'relative', overflow: 'hidden' }}>
+          {/* Decorative elements */}
+          <div style={{ position: 'absolute', top: '-60px', right: '-60px', width: '200px', height: '200px', borderRadius: '50%', background: 'rgba(45, 212, 191, 0.1)', pointerEvents: 'none' }} />
+          <div style={{ position: 'absolute', bottom: '-40px', left: '10%', width: '120px', height: '120px', borderRadius: '50%', background: 'rgba(45, 212, 191, 0.05)', pointerEvents: 'none' }} />
+          
+          <h2 style={{ fontSize: '32px', fontWeight: '700', textAlign: 'center', marginBottom: '48px', color: '#fff', fontFamily: 'Inter, sans-serif', letterSpacing: '-0.5px' }}>
             Why Your Team Will Love This
           </h2>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '24px' }}>
-            <div style={{ padding: '24px', background: '#f8f9fa', borderRadius: '12px', border: '2px solid #e0e0e0' }}>
-              <div style={{ fontSize: '32px', marginBottom: '12px' }}>⚡</div>
-              <h3 style={{ fontSize: '18px', fontWeight: '700', marginBottom: '8px', fontFamily: 'Inter, sans-serif' }}>Save 2+ Hours Per Day</h3>
-              <p style={{ fontSize: '14px', lineHeight: '1.6', color: '#666', fontFamily: 'Inter, sans-serif', margin: 0 }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '20px', position: 'relative' }}>
+            <div style={{ padding: '28px', background: 'rgba(255,255,255,0.03)', borderRadius: '16px', border: '1px solid rgba(45, 212, 191, 0.2)', backdropFilter: 'blur(10px)' }}>
+              <div style={{ width: '44px', height: '44px', borderRadius: '12px', background: 'linear-gradient(135deg, #2DD4BF 0%, #14B8A6 100%)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '16px' }}>
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0f2a3d" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              </div>
+              <h3 style={{ fontSize: '17px', fontWeight: '600', marginBottom: '8px', fontFamily: 'Inter, sans-serif', color: '#fff' }}>Save 2+ Hours Daily</h3>
+              <p style={{ fontSize: '14px', lineHeight: '1.6', color: 'rgba(255,255,255,0.6)', fontFamily: 'Inter, sans-serif', margin: 0 }}>
                 No more switching between platforms, schedulers, and design tools. Everything in one place.
               </p>
             </div>
-            <div style={{ padding: '24px', background: '#f8f9fa', borderRadius: '12px', border: '2px solid #e0e0e0' }}>
-              <div style={{ fontSize: '32px', marginBottom: '12px' }}>🎯</div>
-              <h3 style={{ fontSize: '18px', fontWeight: '700', marginBottom: '8px', fontFamily: 'Inter, sans-serif' }}>Zero Formatting Mistakes</h3>
-              <p style={{ fontSize: '14px', lineHeight: '1.6', color: '#666', fontFamily: 'Inter, sans-serif', margin: 0 }}>
-                See exactly how your post looks before publishing. Catch cropping issues, character limits, and formatting problems.
+            <div style={{ padding: '28px', background: 'rgba(255,255,255,0.03)', borderRadius: '16px', border: '1px solid rgba(45, 212, 191, 0.2)', backdropFilter: 'blur(10px)' }}>
+              <div style={{ width: '44px', height: '44px', borderRadius: '12px', background: 'linear-gradient(135deg, #2DD4BF 0%, #14B8A6 100%)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '16px' }}>
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0f2a3d" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+              </div>
+              <h3 style={{ fontSize: '17px', fontWeight: '600', marginBottom: '8px', fontFamily: 'Inter, sans-serif', color: '#fff' }}>Zero Format Errors</h3>
+              <p style={{ fontSize: '14px', lineHeight: '1.6', color: 'rgba(255,255,255,0.6)', fontFamily: 'Inter, sans-serif', margin: 0 }}>
+                See exactly how your post looks before publishing. Catch cropping issues and character limits.
               </p>
             </div>
-            <div style={{ padding: '24px', background: '#f8f9fa', borderRadius: '12px', border: '2px solid #e0e0e0' }}>
-              <div style={{ fontSize: '32px', marginBottom: '12px' }}>📈</div>
-              <h3 style={{ fontSize: '18px', fontWeight: '700', marginBottom: '8px', fontFamily: 'Inter, sans-serif' }}>Better Performance</h3>
-              <p style={{ fontSize: '14px', lineHeight: '1.6', color: '#666', fontFamily: 'Inter, sans-serif', margin: 0 }}>
-                AI-powered predictions, trending hashtags, and best-time recommendations drive higher engagement.
+            <div style={{ padding: '28px', background: 'rgba(255,255,255,0.03)', borderRadius: '16px', border: '1px solid rgba(45, 212, 191, 0.2)', backdropFilter: 'blur(10px)' }}>
+              <div style={{ width: '44px', height: '44px', borderRadius: '12px', background: 'linear-gradient(135deg, #2DD4BF 0%, #14B8A6 100%)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '16px' }}>
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0f2a3d" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="12" y1="20" x2="12" y2="10"/><line x1="18" y1="20" x2="18" y2="4"/><line x1="6" y1="20" x2="6" y2="16"/></svg>
+              </div>
+              <h3 style={{ fontSize: '17px', fontWeight: '600', marginBottom: '8px', fontFamily: 'Inter, sans-serif', color: '#fff' }}>Better Performance</h3>
+              <p style={{ fontSize: '14px', lineHeight: '1.6', color: 'rgba(255,255,255,0.6)', fontFamily: 'Inter, sans-serif', margin: 0 }}>
+                Smart predictions, trending hashtags, and best-time recommendations drive higher engagement.
               </p>
             </div>
-            <div style={{ padding: '24px', background: '#f8f9fa', borderRadius: '12px', border: '2px solid #e0e0e0' }}>
-              <div style={{ fontSize: '32px', marginBottom: '12px' }}>♿</div>
-              <h3 style={{ fontSize: '18px', fontWeight: '700', marginBottom: '8px', fontFamily: 'Inter, sans-serif' }}>Accessibility Built-In</h3>
-              <p style={{ fontSize: '14px', lineHeight: '1.6', color: '#666', fontFamily: 'Inter, sans-serif', margin: 0 }}>
-                Add alt text to every image with built-in editor. Improve SEO and reach more people with screen reader support.
+            <div style={{ padding: '28px', background: 'rgba(255,255,255,0.03)', borderRadius: '16px', border: '1px solid rgba(45, 212, 191, 0.2)', backdropFilter: 'blur(10px)' }}>
+              <div style={{ width: '44px', height: '44px', borderRadius: '12px', background: 'linear-gradient(135deg, #2DD4BF 0%, #14B8A6 100%)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '16px' }}>
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0f2a3d" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+              </div>
+              <h3 style={{ fontSize: '17px', fontWeight: '600', marginBottom: '8px', fontFamily: 'Inter, sans-serif', color: '#fff' }}>Accessibility Built-In</h3>
+              <p style={{ fontSize: '14px', lineHeight: '1.6', color: 'rgba(255,255,255,0.6)', fontFamily: 'Inter, sans-serif', margin: 0 }}>
+                Add alt text to every image. Improve SEO and reach more people with screen reader support.
               </p>
             </div>
-            <div style={{ padding: '24px', background: '#f8f9fa', borderRadius: '12px', border: '2px solid #e0e0e0' }}>
-              <div style={{ fontSize: '32px', marginBottom: '12px' }}>🎨</div>
-              <h3 style={{ fontSize: '18px', fontWeight: '700', marginBottom: '8px', fontFamily: 'Inter, sans-serif' }}>Brand Consistency</h3>
-              <p style={{ fontSize: '14px', lineHeight: '1.6', color: '#666', fontFamily: 'Inter, sans-serif', margin: 0 }}>
-                Access Fountain Vitality's brand colors, fonts, and assets instantly. No more hunting through Dropbox.
+            <div style={{ padding: '28px', background: 'rgba(255,255,255,0.03)', borderRadius: '16px', border: '1px solid rgba(45, 212, 191, 0.2)', backdropFilter: 'blur(10px)' }}>
+              <div style={{ width: '44px', height: '44px', borderRadius: '12px', background: 'linear-gradient(135deg, #2DD4BF 0%, #14B8A6 100%)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '16px' }}>
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0f2a3d" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+              </div>
+              <h3 style={{ fontSize: '17px', fontWeight: '600', marginBottom: '8px', fontFamily: 'Inter, sans-serif', color: '#fff' }}>Brand Consistency</h3>
+              <p style={{ fontSize: '14px', lineHeight: '1.6', color: 'rgba(255,255,255,0.6)', fontFamily: 'Inter, sans-serif', margin: 0 }}>
+                Access Fountain Vitality's brand colors, fonts, and assets instantly from one place.
               </p>
             </div>
-            <div style={{ padding: '24px', background: '#f8f9fa', borderRadius: '12px', border: '2px solid #e0e0e0' }}>
-              <div style={{ fontSize: '32px', marginBottom: '12px' }}>🔄</div>
-              <h3 style={{ fontSize: '18px', fontWeight: '700', marginBottom: '8px', fontFamily: 'Inter, sans-serif' }}>Template Reusability</h3>
-              <p style={{ fontSize: '14px', lineHeight: '1.6', color: '#666', fontFamily: 'Inter, sans-serif', margin: 0 }}>
+            <div style={{ padding: '28px', background: 'rgba(255,255,255,0.03)', borderRadius: '16px', border: '1px solid rgba(45, 212, 191, 0.2)', backdropFilter: 'blur(10px)' }}>
+              <div style={{ width: '44px', height: '44px', borderRadius: '12px', background: 'linear-gradient(135deg, #2DD4BF 0%, #14B8A6 100%)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '16px' }}>
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0f2a3d" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+              </div>
+              <h3 style={{ fontSize: '17px', fontWeight: '600', marginBottom: '8px', fontFamily: 'Inter, sans-serif', color: '#fff' }}>Reusable Templates</h3>
+              <p style={{ fontSize: '14px', lineHeight: '1.6', color: 'rgba(255,255,255,0.6)', fontFamily: 'Inter, sans-serif', margin: 0 }}>
                 Create once, reuse forever. Save your best-performing post formats as templates.
               </p>
             </div>
@@ -595,121 +614,103 @@ export default function SocialPreviewPro() {
         </div>
 
         {/* How to Use Section */}
-        <div style={{ background: 'rgba(255, 255, 255, 0.95)', borderRadius: '16px', padding: '40px', marginBottom: '32px', boxShadow: '0 20px 60px rgba(0, 0, 0, 0.3)' }}>
-          <h2 style={{ fontSize: '36px', fontWeight: '900', textAlign: 'center', marginBottom: '16px', color: '#1a1a1a' }}>
+        <div style={{ background: '#fff', borderRadius: '24px', padding: '56px 40px', marginBottom: '32px', boxShadow: '0 4px 24px rgba(0, 0, 0, 0.08)' }}>
+          <div style={{ display: 'inline-block', padding: '6px 14px', background: '#e6faf8', borderRadius: '20px', marginBottom: '16px', fontSize: '13px', fontWeight: '600', color: '#0d9488', fontFamily: 'Inter, sans-serif', letterSpacing: '0.5px' }}>
+            QUICK START
+          </div>
+          <h2 style={{ fontSize: '32px', fontWeight: '700', marginBottom: '48px', color: '#0f2a3d', fontFamily: 'Inter, sans-serif', letterSpacing: '-0.5px' }}>
             How to Use Social Preview Pro
           </h2>
-          <p style={{ textAlign: 'center', fontSize: '16px', color: '#666', fontFamily: 'Inter, sans-serif', marginBottom: '40px', maxWidth: '600px', margin: '0 auto 40px auto' }}>
-            Follow this simple workflow to create perfect social posts every time
-          </p>
           
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '32px', maxWidth: '900px', margin: '0 auto' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '0', maxWidth: '900px', position: 'relative' }}>
+            {/* Vertical line connector */}
+            <div style={{ position: 'absolute', left: '23px', top: '48px', bottom: '48px', width: '2px', background: 'linear-gradient(180deg, #2DD4BF 0%, #0d9488 100%)', borderRadius: '2px' }} />
+            
             {/* Step 1 */}
-            <div style={{ display: 'flex', gap: '24px', alignItems: 'start' }}>
-              <div style={{ minWidth: '48px', width: '48px', height: '48px', borderRadius: '50%', background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '24px', fontWeight: '900', flexShrink: 0 }}>1</div>
-              <div style={{ flex: 1 }}>
-                <h3 style={{ fontSize: '20px', fontWeight: '700', marginBottom: '8px', fontFamily: 'Inter, sans-serif', color: '#1a1a1a' }}>Upload Your Media</h3>
-                <p style={{ fontSize: '15px', lineHeight: '1.6', color: '#666', fontFamily: 'Inter, sans-serif', margin: '0 0 12px 0' }}>
-                  Drag and drop up to 10 images or videos. Mix both for carousel posts. The tool automatically checks aspect ratios and warns you if content will be cropped on specific platforms.
+            <div style={{ display: 'flex', gap: '28px', alignItems: 'start', paddingBottom: '40px', position: 'relative' }}>
+              <div style={{ minWidth: '48px', width: '48px', height: '48px', borderRadius: '14px', background: '#0f2a3d', color: '#2DD4BF', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '20px', fontWeight: '700', flexShrink: 0, fontFamily: 'Inter, sans-serif', zIndex: 1 }}>01</div>
+              <div style={{ flex: 1, paddingTop: '4px' }}>
+                <h3 style={{ fontSize: '18px', fontWeight: '600', marginBottom: '8px', fontFamily: 'Inter, sans-serif', color: '#0f2a3d' }}>Upload Your Media</h3>
+                <p style={{ fontSize: '15px', lineHeight: '1.7', color: '#64748b', fontFamily: 'Inter, sans-serif', margin: '0 0 14px 0' }}>
+                  Drag and drop up to 10 images or videos. The tool automatically checks aspect ratios and warns you about cropping.
                 </p>
-                <div style={{ padding: '12px', background: '#f8f9fa', borderRadius: '8px', fontSize: '13px', fontFamily: 'Inter, sans-serif', color: '#764ba2', fontWeight: '600' }}>
-                  💡 Pro Tip: Click the Accessibility button to add alt text for better SEO and screen reader support
+                <div style={{ padding: '10px 14px', background: '#f0fdfa', borderRadius: '8px', fontSize: '13px', fontFamily: 'Inter, sans-serif', color: '#0d9488', fontWeight: '500', borderLeft: '3px solid #2DD4BF' }}>
+                  Tip: Use the Accessibility button to add alt text for SEO
                 </div>
               </div>
             </div>
 
             {/* Step 2 */}
-            <div style={{ display: 'flex', gap: '24px', alignItems: 'start' }}>
-              <div style={{ minWidth: '48px', width: '48px', height: '48px', borderRadius: '50%', background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '24px', fontWeight: '900', flexShrink: 0 }}>2</div>
-              <div style={{ flex: 1 }}>
-                <h3 style={{ fontSize: '20px', fontWeight: '700', marginBottom: '8px', fontFamily: 'Inter, sans-serif', color: '#1a1a1a' }}>Write Your Caption</h3>
-                <p style={{ fontSize: '15px', lineHeight: '1.6', color: '#666', fontFamily: 'Inter, sans-serif', margin: '0 0 12px 0' }}>
-                  Type or paste your caption in the editor. Use the Hashtag panel to find trending tags, or the Emoji picker for quick inserts. For Instagram, add hashtags to the "First Comment" field to keep captions clean.
+            <div style={{ display: 'flex', gap: '28px', alignItems: 'start', paddingBottom: '40px', position: 'relative' }}>
+              <div style={{ minWidth: '48px', width: '48px', height: '48px', borderRadius: '14px', background: '#0f2a3d', color: '#2DD4BF', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '20px', fontWeight: '700', flexShrink: 0, fontFamily: 'Inter, sans-serif', zIndex: 1 }}>02</div>
+              <div style={{ flex: 1, paddingTop: '4px' }}>
+                <h3 style={{ fontSize: '18px', fontWeight: '600', marginBottom: '8px', fontFamily: 'Inter, sans-serif', color: '#0f2a3d' }}>Write Your Caption</h3>
+                <p style={{ fontSize: '15px', lineHeight: '1.7', color: '#64748b', fontFamily: 'Inter, sans-serif', margin: '0 0 14px 0' }}>
+                  Type your caption and use the Hashtag panel for trending tags. For Instagram, add hashtags to the "First Comment" field.
                 </p>
-                <div style={{ padding: '12px', background: '#f8f9fa', borderRadius: '8px', fontSize: '13px', fontFamily: 'Inter, sans-serif', color: '#764ba2', fontWeight: '600' }}>
-                  💡 Pro Tip: The tool auto-saves every 30 seconds so you never lose work
+                <div style={{ padding: '10px 14px', background: '#f0fdfa', borderRadius: '8px', fontSize: '13px', fontFamily: 'Inter, sans-serif', color: '#0d9488', fontWeight: '500', borderLeft: '3px solid #2DD4BF' }}>
+                  Tip: Auto-saves every 30 seconds so you never lose work
                 </div>
               </div>
             </div>
 
             {/* Step 3 */}
-            <div style={{ display: 'flex', gap: '24px', alignItems: 'start' }}>
-              <div style={{ minWidth: '48px', width: '48px', height: '48px', borderRadius: '50%', background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '24px', fontWeight: '900', flexShrink: 0 }}>3</div>
-              <div style={{ flex: 1 }}>
-                <h3 style={{ fontSize: '20px', fontWeight: '700', marginBottom: '8px', fontFamily: 'Inter, sans-serif', color: '#1a1a1a' }}>Preview on All Platforms</h3>
-                <p style={{ fontSize: '15px', lineHeight: '1.6', color: '#666', fontFamily: 'Inter, sans-serif', margin: '0 0 12px 0' }}>
-                  Switch between Instagram, LinkedIn, Twitter, TikTok, and Facebook to see exactly how your post looks. Or use Compare Mode to view 2-3 platforms side-by-side and catch formatting issues instantly.
+            <div style={{ display: 'flex', gap: '28px', alignItems: 'start', paddingBottom: '40px', position: 'relative' }}>
+              <div style={{ minWidth: '48px', width: '48px', height: '48px', borderRadius: '14px', background: '#0f2a3d', color: '#2DD4BF', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '20px', fontWeight: '700', flexShrink: 0, fontFamily: 'Inter, sans-serif', zIndex: 1 }}>03</div>
+              <div style={{ flex: 1, paddingTop: '4px' }}>
+                <h3 style={{ fontSize: '18px', fontWeight: '600', marginBottom: '8px', fontFamily: 'Inter, sans-serif', color: '#0f2a3d' }}>Preview All Platforms</h3>
+                <p style={{ fontSize: '15px', lineHeight: '1.7', color: '#64748b', fontFamily: 'Inter, sans-serif', margin: '0 0 14px 0' }}>
+                  Switch between Instagram, LinkedIn, Twitter, TikTok, and Facebook. Use Compare Mode to view 2-3 platforms side-by-side.
                 </p>
-                <div style={{ padding: '12px', background: '#f8f9fa', borderRadius: '8px', fontSize: '13px', fontFamily: 'Inter, sans-serif', color: '#764ba2', fontWeight: '600' }}>
-                  💡 Pro Tip: Videos show realistic controls and play states for each platform
+                <div style={{ padding: '10px 14px', background: '#f0fdfa', borderRadius: '8px', fontSize: '13px', fontFamily: 'Inter, sans-serif', color: '#0d9488', fontWeight: '500', borderLeft: '3px solid #2DD4BF' }}>
+                  Tip: Videos show realistic controls for each platform
                 </div>
               </div>
             </div>
 
             {/* Step 4 */}
-            <div style={{ display: 'flex', gap: '24px', alignItems: 'start' }}>
-              <div style={{ minWidth: '48px', width: '48px', height: '48px', borderRadius: '50%', background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '24px', fontWeight: '900', flexShrink: 0 }}>4</div>
-              <div style={{ flex: 1 }}>
-                <h3 style={{ fontSize: '20px', fontWeight: '700', marginBottom: '8px', fontFamily: 'Inter, sans-serif', color: '#1a1a1a' }}>Check Performance Prediction</h3>
-                <p style={{ fontSize: '15px', lineHeight: '1.6', color: '#666', fontFamily: 'Inter, sans-serif', margin: '0 0 12px 0' }}>
-                  Click the Performance button to get an engagement score (0-100), estimated reach, and optimization tips. The AI analyzes your content type, hashtags, caption length, and more.
+            <div style={{ display: 'flex', gap: '28px', alignItems: 'start', position: 'relative' }}>
+              <div style={{ minWidth: '48px', width: '48px', height: '48px', borderRadius: '14px', background: '#0f2a3d', color: '#2DD4BF', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '20px', fontWeight: '700', flexShrink: 0, fontFamily: 'Inter, sans-serif', zIndex: 1 }}>04</div>
+              <div style={{ flex: 1, paddingTop: '4px' }}>
+                <h3 style={{ fontSize: '18px', fontWeight: '600', marginBottom: '8px', fontFamily: 'Inter, sans-serif', color: '#0f2a3d' }}>Check Performance</h3>
+                <p style={{ fontSize: '15px', lineHeight: '1.7', color: '#64748b', fontFamily: 'Inter, sans-serif', margin: '0 0 14px 0' }}>
+                  Get an engagement score, estimated reach, and optimization tips based on your content type, hashtags, and caption length.
                 </p>
-                <div style={{ padding: '12px', background: '#f8f9fa', borderRadius: '8px', fontSize: '13px', fontFamily: 'Inter, sans-serif', color: '#764ba2', fontWeight: '600' }}>
-                  💡 Pro Tip: Posts with video and 5+ hashtags typically score 30-40 points higher
+                <div style={{ padding: '10px 14px', background: '#f0fdfa', borderRadius: '8px', fontSize: '13px', fontFamily: 'Inter, sans-serif', color: '#0d9488', fontWeight: '500', borderLeft: '3px solid #2DD4BF' }}>
+                  Tip: Posts with video + 5 hashtags score 30-40 points higher
                 </div>
               </div>
             </div>
 
-            {/* Step 5 */}
-            <div style={{ display: 'flex', gap: '24px', alignItems: 'start' }}>
-              <div style={{ minWidth: '48px', width: '48px', height: '48px', borderRadius: '50%', background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '24px', fontWeight: '900', flexShrink: 0 }}>5</div>
-              <div style={{ flex: 1 }}>
-                <h3 style={{ fontSize: '20px', fontWeight: '700', marginBottom: '8px', fontFamily: 'Inter, sans-serif', color: '#1a1a1a' }}>Copy & Export</h3>
-                <p style={{ fontSize: '15px', lineHeight: '1.6', color: '#666', fontFamily: 'Inter, sans-serif', margin: '0 0 12px 0' }}>
-                  Click "Copy for [Platform]" to copy formatted text to your clipboard. Each platform gets its own formatted version. Save your work as a draft for later, or save it as a template to reuse for similar posts.
-                </p>
-                <div style={{ padding: '12px', background: '#f8f9fa', borderRadius: '8px', fontSize: '13px', fontFamily: 'Inter, sans-serif', color: '#764ba2', fontWeight: '600' }}>
-                  💡 Pro Tip: Templates are perfect for recurring post types like weekly tips or testimonials
-                </div>
-              </div>
-            </div>
           </div>
 
-          {/* Quick Reference */}
-          <div style={{ marginTop: '48px', padding: '32px', background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)', borderRadius: '12px', color: '#fff' }}>
-            <h3 style={{ fontSize: '24px', fontWeight: '700', marginBottom: '24px', textAlign: 'center' }}>Quick Feature Reference</h3>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '20px', fontSize: '14px', fontFamily: 'Inter, sans-serif' }}>
-              <div>
-                <strong>📁 Drafts Button:</strong><br />
-                Access saved posts and templates
+          {/* Quick Reference - Minimal grid */}
+          <div style={{ marginTop: '56px', paddingTop: '40px', borderTop: '1px solid #e2e8f0' }}>
+            <h3 style={{ fontSize: '14px', fontWeight: '600', marginBottom: '20px', color: '#94a3b8', fontFamily: 'Inter, sans-serif', letterSpacing: '1px', textTransform: 'uppercase' }}>Feature Reference</h3>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '12px', fontSize: '13px', fontFamily: 'Inter, sans-serif' }}>
+              <div style={{ padding: '12px 16px', background: '#f8fafc', borderRadius: '8px', color: '#475569' }}>
+                <span style={{ fontWeight: '600', color: '#0f2a3d' }}>Drafts</span> — saved posts & templates
               </div>
-              <div>
-                <strong>#️⃣ Hashtags Button:</strong><br />
-                Browse trending wellness hashtags
+              <div style={{ padding: '12px 16px', background: '#f8fafc', borderRadius: '8px', color: '#475569' }}>
+                <span style={{ fontWeight: '600', color: '#0f2a3d' }}>Hashtags</span> — trending wellness tags
               </div>
-              <div>
-                <strong>😊 Emojis Button:</strong><br />
-                Quick emoji picker organized by category
+              <div style={{ padding: '12px 16px', background: '#f8fafc', borderRadius: '8px', color: '#475569' }}>
+                <span style={{ fontWeight: '600', color: '#0f2a3d' }}>Emojis</span> — quick picker by category
               </div>
-              <div>
-                <strong>👁️ Accessibility Button:</strong><br />
-                Add alt text to all images
+              <div style={{ padding: '12px 16px', background: '#f8fafc', borderRadius: '8px', color: '#475569' }}>
+                <span style={{ fontWeight: '600', color: '#0f2a3d' }}>Accessibility</span> — alt text editor
               </div>
-              <div>
-                <strong>📦 Brand Assets Button:</strong><br />
-                Fountain Vitality colors, fonts, and logos
+              <div style={{ padding: '12px 16px', background: '#f8fafc', borderRadius: '8px', color: '#475569' }}>
+                <span style={{ fontWeight: '600', color: '#0f2a3d' }}>Brand Assets</span> — colors & fonts
               </div>
-              <div>
-                <strong>📊 Performance Button:</strong><br />
-                Get AI engagement predictions
+              <div style={{ padding: '12px 16px', background: '#f8fafc', borderRadius: '8px', color: '#475569' }}>
+                <span style={{ fontWeight: '600', color: '#0f2a3d' }}>Performance</span> — engagement score
               </div>
-              <div>
-                <strong>🔄 Compare Mode:</strong><br />
-                View 2-3 platforms simultaneously
+              <div style={{ padding: '12px 16px', background: '#f8fafc', borderRadius: '8px', color: '#475569' }}>
+                <span style={{ fontWeight: '600', color: '#0f2a3d' }}>Compare</span> — multi-platform view
               </div>
-              <div>
-                <strong>📥 Export Button:</strong><br />
-                Download screenshot of previews
+              <div style={{ padding: '12px 16px', background: '#f8fafc', borderRadius: '8px', color: '#475569' }}>
+                <span style={{ fontWeight: '600', color: '#0f2a3d' }}>Export</span> — download previews
               </div>
             </div>
           </div>
